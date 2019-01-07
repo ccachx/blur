@@ -27,8 +27,19 @@ def index(request):
 
         if not os.path.isdir("media/" + img_name):
             os.mkdir("media/" + img_name)
+
         rgbimg = cv2.imread(new_img.img.path)
         cvimg = cv2.imread(new_img.img.path, 0)
+
+        img_height= rgbimg.shape[0]
+        img_width = rgbimg.shape[1]
+
+        if img_width>400:
+            img_height=img_height*400/img_width
+            img_width=400
+            rgbimg=cv2.resize(rgbimg,(int(img_width),int(img_height)))
+            cvimg = cv2.resize(cvimg, (int(img_width), int(img_height)))
+
         img_blur, img_B, img_C = blur(cvimg, 100, 1 / 4, 1 / 2, 1 / 4)
         img_deblur = cus_filter2D(cvimg)  # {{-1,-1,0},{-1,0,1},{0,1,1}}
         # img_fudiao = cus_filter2D(cvimg, -1, -1, 0, -1, 0, 1, 0, 1, 1)
