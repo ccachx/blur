@@ -20,5 +20,5 @@ from django.conf.urls.static import static
 from img_db.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index),
+    path('', index),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
